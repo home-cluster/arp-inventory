@@ -91,5 +91,6 @@ if __name__ == '__main__':
     try:
         sys.exit(main() or 0)
     except Exception as e:
-        print(e)
+        print(e, file=sys.stderr)
+        print('{}')
         sys.exit(1)
