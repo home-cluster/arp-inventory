@@ -2,7 +2,6 @@
 
 import sys
 import json
-import socket
 import asyncio
 import subprocess
 
@@ -11,7 +10,6 @@ import ipaddress
 
 def main():
     network = parse_args()
-    socket.setdefaulttimeout(1)
     machines = {}
     hosts = [str(host) for host in network.hosts()]
     ping_sweep(hosts)
@@ -74,17 +72,11 @@ def arp(options=None):
 
 
 def is_ip(x):
-    parts = x.split('.')
-    if len(parts) < 4:
+    try:
+        ipaddress.ip_address(x)
+        return True
+    except ValueError:
         return False
-    for part in parts:
-        try:
-            value = int(part)
-        except ValueError:
-            return False
-        if not (0 <= value <= 255):
-            return False
-    return True
 
 
 if __name__ == '__main__':
