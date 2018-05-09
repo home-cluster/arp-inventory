@@ -1,10 +1,10 @@
 #! /usr/bin/env python3
 
 import sys
-import json
 import asyncio
 import subprocess
 
+import yaml
 import ipaddress
 
 
@@ -37,7 +37,7 @@ def main():
         if not v['hostnames'] and v['ip']:
             ret[v['ip']] = {'macaddress': mac}
 
-    print(json.dumps(ret, indent=4, sort_keys=True))
+    print(yaml.dump(ret))
 
 
 def parse_args():
